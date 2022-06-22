@@ -51,7 +51,11 @@ def main():
         conn = create_connection(database)
         with conn:
             df = select_table(conn, tbname)
-            st.write(df)
+
+        with col2:
+            st.write("Total：" + str(df.shape[0]))
+
+        st.write(df)
 
     with st.container():
         st.write("---")
@@ -60,6 +64,9 @@ def main():
             title = st.text_input('Search by Title', 'network')
         df = searchByTitle(conn, title)
         st.write(df)
+
+        with col2:
+            st.write("Total：" + str(df.shape[0]))
     
 
 
