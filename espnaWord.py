@@ -17,7 +17,8 @@ def create_connection(db_file):
 
 
 def searchByWord(conn, word):
-    sql = "select content from word_content where word='"+word+"'"
+    # sql = "select content from word_content where word='"+word+"'"
+    sql = "select word, content from word_content where word like'"+word+"%'"
     # print(sql)
     cur = conn.cursor()
     cur.execute(sql)
@@ -40,16 +41,20 @@ def main():
     word = st.text_input('Search by WORD', 'abandonar')
     # word = 'absoluto'
     # word = 'abandonar'
+    # word = 'china'
     df = searchByWord(conn, word)
     if len(df) ==0:
-        # print('Nothing Found')
         st.write('~ Nothing Found ~')
     else:
     # need to separate linebreak by \n
     # df = df[0][0].replace('\\n','\n ')
-        df = df[0][0].split(sep='\n')
-        for i in df:
-            st.write(i)
+        for j in range(len(df)):
+            tmp = df[j][1].split(sep='\n')
+            st.write('---')
+            st.write(df[j][0])
+            for i in tmp:
+                # print(i)
+                st.write(i)
     # df = """{}""".format(df)
     # df = f"{df}"
     # print(df)
