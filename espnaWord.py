@@ -39,6 +39,7 @@ def main():
     #     col1, col2, col3 = st.columns(3)
     #     with col1:
     word = st.text_input('Search by WORD', 'españ')
+    st.write('---')
     # word = 'absoluto'
     # word = 'abandonar'
     # word = 'china'
@@ -46,16 +47,22 @@ def main():
     if len(df) ==0:
         st.write('~ Nothing Found ~')
     else:
+        # col1, col2 = st.columns((1,2))
     # need to separate linebreak by \n
     # df = df[0][0].replace('\\n','\n ')
         for j in range(len(df)):
+            col1, col2 = st.columns((1,2))
             tmp = df[j][1].split(sep='\n')
-            st.write('---')
-            st.write(df[j][0])
+            # st.write('---')
+            with col1:
+                st.write(df[j][0])
+                # st.write('---')
             # st.write("<font color='y'>"+df[j][0]+"</font>", unsafe_allow_html=True)
             for i in tmp:
                 # print(i)
-                st.write(i)
+                with col2:
+                    st.write(i)
+                    # st.write('---')
     # df = """{}""".format(df)
     # df = f"{df}"
     # print(df)
@@ -64,7 +71,7 @@ def main():
     # t = "[('(tr)\n 1. 拋棄，放棄，丟棄:\n ~ a sus hijos \n2. xxx"
     # print(t.replace('\\n', '\n'))
     # st.write(t)
-
+    st.write('---')
     conn.close()
 
 if __name__ == '__main__':
