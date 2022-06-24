@@ -62,7 +62,7 @@ def main():
             tmp = df[j][1].split(sep='\n')
             with col1:
                 # st.write(df[j][0])
-                st.write(f"<p style='color:#0066cc'>{df[j][0]}</p>", unsafe_allow_html=True)
+                st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
             for i in tmp:
                 # print(i)
                 with col2:
