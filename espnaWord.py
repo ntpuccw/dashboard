@@ -29,8 +29,11 @@ def searchByWord(conn, word):
     # df.columns = names
     # return df    
 
-
+# def word_color(url):
+    #  st.markdown(f'<p style="background-color:#0066cc;color:#33ff33;font-size:20px;border-radius:2%;">{url}</p>', unsafe_allow_html=True)
+    #  st.markdown(f'<p style="color:#ffff00;font-size:20px;">{url}</p>', unsafe_allow_html=True)
 def main():
+    # xxx('notice')
     database = r"espnaDict.sqlite"
     conn = create_connection(database)
     # with st.container():
@@ -53,11 +56,9 @@ def main():
         for j in range(len(df)):
             col1, col2 = st.columns((1,2))
             tmp = df[j][1].split(sep='\n')
-            # st.write('---')
             with col1:
-                st.write(df[j][0])
-                # st.write('---')
-            # st.write("<font color='y'>"+df[j][0]+"</font>", unsafe_allow_html=True)
+                # st.write(df[j][0])
+                st.write(f"<p style='color:#ffff00'>{df[j][0]}</p>", unsafe_allow_html=True)
             for i in tmp:
                 # print(i)
                 with col2:
