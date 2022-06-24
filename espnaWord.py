@@ -38,7 +38,7 @@ def main():
     #     # st.write("---")
     #     col1, col2, col3 = st.columns(3)
     #     with col1:
-    word = st.text_input('Search by WORD', 'abandonar')
+    word = st.text_input('Search by WORD', 'españ')
     # word = 'absoluto'
     # word = 'abandonar'
     # word = 'china'
@@ -52,6 +52,7 @@ def main():
             tmp = df[j][1].split(sep='\n')
             st.write('---')
             st.write(df[j][0])
+            # st.write("<font color='y'>"+df[j][0]+"</font>", unsafe_allow_html=True)
             for i in tmp:
                 # print(i)
                 st.write(i)
