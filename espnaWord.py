@@ -7,7 +7,7 @@ import streamlit as st
 # from googletrans import Translator
 # from google_trans_new import google_translator  
 # import googletrans
-import translators as ts  # streamlit has no such module
+# import translators as ts  # streamlit has no such module
 
 
 def create_connection(db_file):
