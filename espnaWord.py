@@ -4,6 +4,10 @@ import sqlite3
 from sqlite3 import Error
 import pandas as pd
 import streamlit as st
+# from googletrans import Translator
+# from google_trans_new import google_translator  
+# import googletrans
+import translators as ts
 
 
 def create_connection(db_file):
@@ -58,7 +62,7 @@ def main():
             tmp = df[j][1].split(sep='\n')
             with col1:
                 # st.write(df[j][0])
-                st.write(f"<p style='color:#ffff00'>{df[j][0]}</p>", unsafe_allow_html=True)
+                st.write(f"<p style='color:#0066cc'>{df[j][0]}</p>", unsafe_allow_html=True)
             for i in tmp:
                 # print(i)
                 with col2:
@@ -73,6 +77,34 @@ def main():
     # print(t.replace('\\n', '\n'))
     # st.write(t)
     st.write('---')
+    # print(googletrans.LANGUAGES)
+    st.write("From other translators")
+    # translator = Translator()
+    
+    # translator = google_translator()  
+    # translate_text = translator.translate('Hola mundo!', lang_src='es', lang_tgt='en') 
+    # result = translator.translate(word, src = 'es', dest='zh-tw')
+    # st.write(result.text)
+    # st.write(translate_text)
+    # print(translate_text)
+    col1, col2 = st.columns((1,2))
+    with col1:
+        st.write('By Google')
+    with col2:
+        text = ts.google('españolismo' , to_language = 'zh-TW', if_use_cn_host=True)
+        st.write(text)
+    col1, col2 = st.columns((1,2))
+    with col1:
+        st.write('By Microsoft Bing')
+    with col2:
+        text = ts.bing(word , to_language = 'zh-Hant')
+        st.write(text)
+    # text = ts.caiyun(word , to_language = 'zh', professional_field=None)
+    # text = ts.baidu(word , to_language = 'zh', professional_field='common')
+    # st.write("caiyun:\n" + text)
+    # st.write(ts.translate_html(word, translator=ts.google, to_language='zh-TW', n_jobs=-1))
+    st.write('---')
+
     conn.close()
 
 if __name__ == '__main__':
