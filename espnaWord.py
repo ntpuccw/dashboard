@@ -105,8 +105,9 @@ def main():
     # # st.write("caiyun:\n" + text)
     # # st.write(ts.translate_html(word, translator=ts.google, to_language='zh-TW', n_jobs=-1))
     # st.write('---')
-
+    st.write("[Created by Luisa Chang@ntu >>>](https://luisachangntu.me/)")
     conn.close()
+
 
 if __name__ == '__main__':
     main()            
