@@ -1,5 +1,3 @@
-# DELETE data 
-
 import sqlite3
 from sqlite3 import Error
 import pandas as pd
@@ -40,44 +38,27 @@ def main():
     st.title("稀罕·西漢辭典")
     database = r"espnaDict.sqlite"
     conn = create_connection(database)
-    # with st.container():
-        
-    #     # st.write("---")
-    #     col1, col2, col3 = st.columns(3)
-    #     with col1:
+    
     word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字或前部分字母皆可）', 'españ')
     st.write('---')
-    # word = 'absoluto'
-    # word = 'abandonar'
-    # word = 'china'
     df = searchByWord(conn, word)
     if len(df) ==0:
         st.write('~ Nothing Found ~')
     else:
-        # col1, col2 = st.columns((1,2))
     # need to separate linebreak by \n
-    # df = df[0][0].replace('\\n','\n ')
         for j in range(len(df)):
             col1, col2 = st.columns((1,2))
-            tmp = df[j][1].split(sep='\n')
+            tmp = df[j][1].split(sep='\n') 
             with col1:
-                # st.write(df[j][0])
                 st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
-            for i in tmp:
-                # print(i)
+            for line in tmp:
                 with col2:
-                    st.write(i)
-                    # st.write('---')
-    # df = """{}""".format(df)
-    # df = f"{df}"
-    # print(df)
-    # st.write(df[0][0])
-    
-    # t = "[('(tr)\n 1. 拋棄，放棄，丟棄:\n ~ a sus hijos \n2. xxx"
-    # print(t.replace('\\n', '\n'))
-    # st.write(t)
+                    st.write(line)
+                    
     st.write('---')
-    # ------------------------
+    st.write("[Created by Luisa Chang@ntu >>>](https://luisachangntu.me/)")
+    
+    # ----- Try to include other translators -------------------
     # # print(googletrans.LANGUAGES)
     # st.write("From other translators")
     # # translator = Translator()
@@ -105,7 +86,7 @@ def main():
     # # st.write("caiyun:\n" + text)
     # # st.write(ts.translate_html(word, translator=ts.google, to_language='zh-TW', n_jobs=-1))
     # st.write('---')
-    st.write("[Created by Luisa Chang@ntu >>>](https://luisachangntu.me/)")
+    
     conn.close()
 
 
