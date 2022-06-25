@@ -37,7 +37,7 @@ def searchByWord(conn, word):
     #  st.markdown(f'<p style="background-color:#0066cc;color:#33ff33;font-size:20px;border-radius:2%;">{url}</p>', unsafe_allow_html=True)
     #  st.markdown(f'<p style="color:#ffff00;font-size:20px;">{url}</p>', unsafe_allow_html=True)
 def main():
-    # xxx('notice')
+    st.title("稀罕·西漢辭典")
     database = r"espnaDict.sqlite"
     conn = create_connection(database)
     # with st.container():
@@ -45,7 +45,7 @@ def main():
     #     # st.write("---")
     #     col1, col2, col3 = st.columns(3)
     #     with col1:
-    word = st.text_input('Search by WORD', 'españ')
+    word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字或前部分字母皆可）', 'españ')
     st.write('---')
     # word = 'absoluto'
     # word = 'abandonar'
