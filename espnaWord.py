@@ -66,7 +66,7 @@ def main():
     df = searchByWord(conn, word)
     display_content(df)
     st.write('---')
-    
+
     word_zh = st.text_input('輸入中文字查詢相關西文單字', '番紅花')
     st.write('---')
     df = searchByWord_zh(conn, word_zh)
@@ -102,7 +102,20 @@ def main():
     # # st.write("caiyun:\n" + text)
     # # st.write(ts.translate_html(word, translator=ts.google, to_language='zh-TW', n_jobs=-1))
     # st.write('---')
-    
+    st.write("""
+    網頁設計維護：José Saúl Yang ‧ Eva Chen ‧ Úlises Chung ‧ 
+    Urbano Lee ‧ Morgan Kao ‧ Yuan-Ying Wang ‧ Pin Fang Che ‧ 
+    Kuan Hao Chiao
+    """)
+    st.write("""資料搜集翻譯：Luisa Chang ‧ José Saúl Yang ‧ Pedro Chang ‧  
+    Andrés Wu ‧ Vicente Hung ‧ Benito Wang ‧ Lolita Kuang ‧ Bernardo Lin ‧ 
+    Eva Chen ‧ Enrique Lin ‧ Aurora Tsai ‧ Esther Huang ‧ Judy Yang ‧ 
+    Yolanda Cheng ‧ Rafael Lin ‧ Henry Yang ‧ Sofía Liu ‧ Aiden Chung ‧ 
+    Ellen Chuang ‧ Carlos Chang ‧ Esperanza Hou ‧ Daniel Yen ‧ Gonzalo Yang ‧ 
+    Jessica Fan ‧ Emma Chou ‧ Pilar Hsu ‧ Paola Huang ‧ Felipe Chen ‧ 
+    Irene Chien ‧ Alberto Chang ‧ Jaime Kao ‧ Inés Hung ‧ Linda Wang ‧ 
+    Diego Chen ‧ Margarita Yao ‧ Ke Ru Lai
+    """)
     conn.close()
 
 
