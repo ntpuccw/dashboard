@@ -116,6 +116,7 @@ def main():
     Irene Chien ‧ Alberto Chang ‧ Jaime Kao ‧ Inés Hung ‧ Linda Wang ‧ 
     Diego Chen ‧ Margarita Yao ‧ Ke Ru Lai
     """)
+    st.write('---')
     conn.close()
 
 
