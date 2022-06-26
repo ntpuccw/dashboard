@@ -57,6 +57,7 @@ def display_content(df):
     #  st.markdown(f'<p style="background-color:#0066cc;color:#33ff33;font-size:20px;border-radius:2%;">{url}</p>', unsafe_allow_html=True)
     #  st.markdown(f'<p style="color:#ffff00;font-size:20px;">{url}</p>', unsafe_allow_html=True)
 def main():
+    st.subheader("Diccionario Español-Chino / Chino-Español")
     st.title("LUISA · 西漢/漢西辭典")
     database = r"espnaDict.sqlite"
     conn = create_connection(database)
