@@ -104,7 +104,7 @@ def main():
     # st.write('---')
     st.write("""
     網頁設計維護：José Saúl Yang ‧ Eva Chen ‧ Úlises Chung ‧ 
-    Urbano Lee ‧ Morgan Kao ‧ Yuan-Ying Wang ‧ Pin Fang Che ‧ 
+    Urbano Lee ‧ Morgan Kao ‧ Yuan-Ying Wang ‧ Pin Fang Chen ‧ 
     Kuan Hao Chiao
     """)
     st.write("""資料搜集翻譯：Luisa Chang ‧ José Saúl Yang ‧ Pedro Chang ‧  
