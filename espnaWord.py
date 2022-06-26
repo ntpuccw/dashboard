@@ -19,7 +19,6 @@ def create_connection(db_file):
 
     return conn
 
-
 def searchByWord(conn, word):
     # sql = "select content from word_content where word='"+word+"'"
     sql = "select word, content from word_content where word like'"+word+"%'"
@@ -40,6 +39,20 @@ def searchByWord_zh(conn, word):
     cur.execute(sql)
     rows = cur.fetchall()
     return rows
+
+def display_content(df):
+    if len(df) ==0:
+        st.write('~ Nothing Found ~')
+        return
+# need to separate linebreak by \n
+    for j in range(len(df)):
+        col1, col2 = st.columns((1,2))
+        tmp = df[j][1].split(sep='\n') 
+        with col1:
+            st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
+        for line in tmp:
+            with col2:
+                st.write(line)
 # def word_color(url):
     #  st.markdown(f'<p style="background-color:#0066cc;color:#33ff33;font-size:20px;border-radius:2%;">{url}</p>', unsafe_allow_html=True)
     #  st.markdown(f'<p style="color:#ffff00;font-size:20px;">{url}</p>', unsafe_allow_html=True)
@@ -49,44 +62,15 @@ def main():
     conn = create_connection(database)
     
     word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字或前部分字母皆可）', 'españ')
-    
-    # print(TextBlob(word).detect_language())
-    # translator = google_translator()
-    # dt1 = translator.detect(word)
-    # print(dt1)
-
     st.write('---')
     df = searchByWord(conn, word)
-    if len(df) ==0:
-        st.write('~ Nothing Found ~')
-    else:
-    # need to separate linebreak by \n
-        for j in range(len(df)):
-            col1, col2 = st.columns((1,2))
-            tmp = df[j][1].split(sep='\n') 
-            with col1:
-                st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
-            for line in tmp:
-                with col2:
-                    st.write(line)
-                    
+    display_content(df)
     st.write('---')
+    
     word_zh = st.text_input('輸入中文字查詢相關西文單字', '番紅花')
     st.write('---')
     df = searchByWord_zh(conn, word_zh)
-    if len(df) ==0:
-        st.write('~ Nothing Found ~')
-    else:
-    # need to separate linebreak by \n
-        for j in range(len(df)):
-            col1, col2 = st.columns((1,2))
-            tmp = df[j][1].split(sep='\n') 
-            with col1:
-                st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
-            for line in tmp:
-                with col2:
-                    st.write(line)
-                    
+    display_content(df)
     st.write('---')
     st.write("[Created by Luisa Chang@ntu >>>](https://luisachangntu.me/)")
     
