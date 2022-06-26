@@ -102,12 +102,12 @@ def main():
     # # st.write("caiyun:\n" + text)
     # # st.write(ts.translate_html(word, translator=ts.google, to_language='zh-TW', n_jobs=-1))
     # st.write('---')
-    st.write("""
+    st.write("""<p style='font-size:15px;'>
     網頁設計維護：José Saúl Yang ‧ Eva Chen ‧ Úlises Chuang ‧ 
     Urbano Lee ‧ Morgan Kao ‧ Yuan-Ying Wang ‧ Pin Fang Chen ‧ 
     Kuan Hao Chiao
-    """)
-    st.write("""資料搜集翻譯：Luisa Chang ‧ José Saúl Yang ‧ Pedro Chang ‧ 
+    </p>""", unsafe_allow_html=True)
+    st.write("""<p style='font-size:15px;'>資料搜集翻譯：Luisa Chang ‧ José Saúl Yang ‧ Pedro Chang ‧ 
     Andrés Wu ‧ Vicente Hung ‧ Benito Wang ‧ Lolita Kuang ‧ Adrián Chou ‧ Danial Hou ‧ Bernardo Lin ‧ 
     Eva Chen ‧ Enrique Lin ‧ Aurora Tsai ‧ Esther Huang ‧ Judy Yang ‧ 
     Yolanda Cheng ‧ Rafael Lin ‧ Henry Yang ‧ Sofía Liu ‧ Aiden Chuang ‧ 
@@ -115,7 +115,7 @@ def main():
     Jessica Fan ‧ Emma Chou ‧ Pilar Hsu ‧ Paola Huang ‧ Felipe Chen ‧ 
     Irene Chien ‧ Alberto Chang ‧ Jaime Kao ‧ Inés Hung ‧ Linda Wang ‧ 
     Diego Chen ‧ Margarita Yao ‧ Ke Ru Lai
-    """)
+    </p>""", unsafe_allow_html=True)
     st.write('---')
     conn.close()
 
