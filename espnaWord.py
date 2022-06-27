@@ -2,19 +2,19 @@ import sqlite3
 from sqlite3 import Error
 # import pandas as pd
 import streamlit as st
-# import requests
-# from streamlit_lottie import st_lottie
+import requests
+from streamlit_lottie import st_lottie
 # from textblob import TextBlob
 # from googletrans import Translator
 # from google_trans_new import google_translator  
 # import googletrans
 # import translators as ts  # streamlit has no such module
 
-# def load_lottieurl(url):
-#     r = requests.get(url)
-#     if r.status_code != 200:
-#         return None
-#     return r.json()
+def load_lottieurl(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 def create_connection(db_file):
     conn = None
@@ -64,15 +64,15 @@ def display_content(df):
     #  st.markdown(f'<p style="color:#ffff00;font-size:20px;">{url}</p>', unsafe_allow_html=True)
 def main():
     # add animation 
-    # left_column, right_column = st.columns((3, 1))
-    # with left_column:
-    #     st.title("LUISA · 西漢/漢西辭典")
-    #     st.subheader("Diccionario Español-Chino / Chino-Español")
-    # with right_column:
-    #     lottie_coding = load_lottieurl("https://assets7.lottiefiles.com/packages/lf20_Jmpjal.json")
-    #     st_lottie(lottie_coding, height=200, key="coding")
-    st.title("LUISA · 西漢/漢西辭典")
-    st.subheader("Diccionario Español-Chino / Chino-Español")
+    left_column, right_column = st.columns((3, 1))
+    with left_column:
+        st.title("LUISA · 西漢/漢西辭典")
+        st.subheader("Diccionario Español-Chino / Chino-Español")
+    with right_column:
+        lottie_coding = load_lottieurl("https://assets7.lottiefiles.com/packages/lf20_Jmpjal.json")
+        st_lottie(lottie_coding, height=200, key="coding")
+    # st.title("LUISA · 西漢/漢西辭典")
+    # st.subheader("Diccionario Español-Chino / Chino-Español")
     database = r"espnaDict.sqlite"
     conn = create_connection(database)
     
