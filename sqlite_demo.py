@@ -17,7 +17,7 @@ def create_connection(db_file):
 
 def select_table(conn, tbname):
     sql = 'select * from ' + tbname
-    print(sql)
+    # print(sql)
     cur = conn.cursor()
     cur.execute(sql)
     rows = cur.fetchall()
@@ -53,7 +53,7 @@ def main():
             df = select_table(conn, tbname)
 
         with col2:
-            st.write("Total：" + str(df.shape[0]))
+            st.write("總數：" + str(df.shape[0]))
 
         st.write(df)
 
