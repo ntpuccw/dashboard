@@ -1,6 +1,6 @@
 import sqlite3
 from sqlite3 import Error
-import pandas as pd
+# import pandas as pd
 import streamlit as st
 # import requests
 # from streamlit_lottie import st_lottie
