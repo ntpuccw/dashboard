@@ -1,5 +1,89 @@
 import streamlit as st
+import sqlite3
 
+db_file = r"test.sqlite"
+
+def clear_form():
+    st.session_state["new"] = ""
+    st.session_state["content"] = ""
+
+def create_connection():
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except sqlite3.Error as e:
+        print(e)
+
+    return conn
+
+def searchByWord(word):
+    conn = create_connection()
+    # sql = "select content from word_content where word='"+word+"'"
+    # sql = "select word, content from word_content where word like'"+word+"%'"
+    sql = "select word, content from word_content where word='"+word+"'"
+    # print(sql)
+    cur = conn.cursor()
+    cur.execute(sql)
+    rows = cur.fetchall()
+    conn.close()
+    return rows
+
+def insertData(word, content):
+    conn = create_connection()
+    sql = "INSERT INTO word_content(word, content) VALUES(?,?)" 
+    cur = conn.cursor()
+    cur.execute(sql, (word, content))
+    conn.commit()
+    conn.close()
+
+def updateData(word, content):
+    conn = create_connection()
+    sql = "UPDATE  word_content SET content =? where word = ?" 
+    cur = conn.cursor()
+    cur.execute(sql, (content, word))
+    conn.commit()
+    conn.close()
+
+def deleteData(word):
+    conn = create_connection()
+    sql = "DELETE FROM word_content WHERE word = ?" 
+    cur = conn.cursor()
+    cur.execute(sql, (word,))
+    conn.commit()
+    conn.close()
+
+def display_content(df):
+    if len(df) ==0:
+        st.write('~ Nothing Found ~')
+        st.write('---')
+        return
+# need to separate linebreak by \n
+    for j in range(len(df)):
+        lines = []
+        col1, col2 = st.columns((1,2))
+        tmp = df[j][1].split(sep='\n') 
+        with col1:
+            st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
+        
+        with col2:
+            content = st.text_area("content", df[j][1], height = 200, key = j) 
+            # for line in tmp:
+            #     st.write(line)
+    
+        col1, col2 = st.columns((1,2))
+        with col1:
+            if st.button("提交修改 "+ df[j][0]+ " 內容", key = j):
+                updateData(df[j][0], content)
+                st.success("更新成功 ~")
+                st.balloons()
+            
+        with col2:
+            if st.button("提交刪除單字 "+ df[j][0], key = j):
+                deleteData(df[j][0])
+                st.success("刪除成功 ~")
+                st.snow()
+        st.write('---')
+# --------------------------------------------------------    
 def check_password():
     """Returns `True` if the user had the correct password."""
 
@@ -29,5 +113,51 @@ def check_password():
         return True
 
 if check_password():
-    st.write("Hello ~ Lusia")
-    # st.button("Click me")
+    # database = r"test.sqlite"
+    # conn = create_connection(database)
+    # -------------------------------------
+    st.subheader("修改與刪除西語字彙與其中文辭義")
+    # with st.form("Insert_form"):
+    word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字）', 'España')
+    st.write('---')
+    df = searchByWord(word)
+    display_content(df)
+    
+    # ----------- INSERT ----------------------------
+    st.subheader("新增西語字彙與其中文辭義")
+    with st.form("Insert_form"):
+        # placeholder = st.empty()
+        new_word = st.text_input('輸入西班牙語單字', '', key = "new")
+        new_content = st.text_area('輸入中文辭義', '', height = 200, key= "content")
+        st.text(new_word)
+        st.text(new_content)
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            confirmed = st.form_submit_button("確認內容")
+        with c2:
+            submitted = st.form_submit_button("提交新單字 "+ new_word)
+        with c3:
+            clearall = st.form_submit_button("輸入新單字", on_click=clear_form)
+
+        if submitted:
+        # if st.button("新增"):
+            if new_word =='' or new_content == '':
+                st.error('請輸入單字與中文辭義')
+            else:
+                insertData(new_word, new_content)
+                st.success('新增成功 ~')
+                st.snow()
+            # st.text_input('輸入西班牙語單字', value='', key="empty")
+# ---------------------------------------------------
+#     with st.form("my_form"):
+#         st.write("Inside the form")
+#         slider_val = st.slider("Form slider")
+#         checkbox_val = st.checkbox("Form checkbox")
+
+#         # Every form must have a submit button.
+#         submitted = st.form_submit_button("Submit")
+#         if submitted:
+#             st.write("slider", slider_val, "checkbox", checkbox_val)
+#             st.success('新增成功 ~')
+
+# st.write("Outside the form")   
