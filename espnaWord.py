@@ -77,6 +77,7 @@ def main():
     conn = create_connection(database)
     
     word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字或前部分字母皆可）', 'españ')
+    st.text("HELP: á  é  í  ó  ú  ü  ñ")
     st.write('---')
     df = searchByWord(conn, word)
     display_content(df)
