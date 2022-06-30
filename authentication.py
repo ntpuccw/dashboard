@@ -1,3 +1,9 @@
+# Find out duolicate words
+# SELECT word, content, COUNT(*)
+# FROM word_content
+# group by word
+# HAVING COUNT(*) > 1
+
 import streamlit as st
 import sqlite3
 
@@ -21,7 +27,6 @@ def searchByWord(word):
     # sql = "select content from word_content where word='"+word+"'"
     # sql = "select word, content from word_content where word like'"+word+"%'"
     sql = "select word, content from word_content where word='"+word+"'"
-    # print(sql)
     cur = conn.cursor()
     cur.execute(sql)
     rows = cur.fetchall()
@@ -54,36 +59,48 @@ def deleteData(word):
 
 def display_content(df):
     if len(df) ==0:
-        st.write('~ Nothing Found ~')
+        st.error("~ Nothing found in the dictionary ~")
         st.write('---')
-        return
-# need to separate linebreak by \n
-    for j in range(len(df)):
-        lines = []
-        col1, col2 = st.columns((1,2))
-        tmp = df[j][1].split(sep='\n') 
-        with col1:
-            st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
+        return "None"
+    st.write(f"<p style='color:#FF4500'>{df[0][0]}</p>", unsafe_allow_html=True)
+    content = st.text_area("中文辭義", df[0][1], height = 200, key = "update_delete")
+    return content
+# for multiple contents(not normal situation)
+# def display_content(df):
+#     if len(df) ==0:
+#         st.write('~ Nothing Found ~')
+#         st.write('---')
+#         return
+# # need to separate linebreak by \n
+#     for j in range(len(df)):
+#         lines = []
+#         col1, col2 = st.columns((1,2))
+#         tmp = df[j][1].split(sep='\n') 
+#         with col1:
+#             st.write(f"<p style='color:#FF4500'>{df[j][0]}</p>", unsafe_allow_html=True)
         
-        with col2:
-            content = st.text_area("content", df[j][1], height = 200, key = j) 
-            # for line in tmp:
-            #     st.write(line)
+#         with col2:
+#             content = st.text_area("content", df[j][1], height = 200, key = j) 
+#             # for line in tmp:
+#             #     st.write(line)
     
-        col1, col2 = st.columns((1,2))
-        with col1:
-            if st.button("提交修改 "+ df[j][0]+ " 內容", key = j):
-                updateData(df[j][0], content)
-                st.success("更新成功 ~")
-                st.balloons()
+#         col1, col2 = st.columns((1,2))
+#         with col1:
+#             if st.button("提交修改 "+ df[j][0]+ " 內容", key = j):
+#                 updateData(df[j][0], content)
+#                 # df = searchByWord(df[j][0])
+#                 # display_content(df)
+#                 st.success("更新成功 ~")
+#                 st.balloons()
             
-        with col2:
-            if st.button("提交刪除單字 "+ df[j][0], key = j):
-                deleteData(df[j][0])
-                st.success("刪除成功 ~")
-                st.snow()
-        st.write('---')
-# --------------------------------------------------------    
+#         with col2:
+#             if st.button("提交刪除單字 "+ df[j][0], key = j):
+#                 deleteData(df[j][0])
+#                 st.success("刪除成功 ~")
+#                 st.snow()
+#         st.write('---')
+# --------------------------------------------------------  
+# check_password() is copyied from streamlit demo  
 def check_password():
     """Returns `True` if the user had the correct password."""
 
@@ -113,20 +130,63 @@ def check_password():
         return True
 
 if check_password():
-    # database = r"test.sqlite"
-    # conn = create_connection(database)
-    # -------------------------------------
     st.subheader("修改與刪除西語字彙與其中文辭義")
-    # with st.form("Insert_form"):
-    word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字）', 'España')
-    st.write('---')
-    df = searchByWord(word)
-    display_content(df)
+    with st.form("update_delete_form"):
+        word = st.text_input('輸入欲修改或刪除的西文單字（完整單字）', '')
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            search = st.form_submit_button("查詢")
+        with c2:
+            update = st.form_submit_button("提交修改 "+ word)
+        with c3:
+            delete = st.form_submit_button("提交刪除 "+ word)
+        # content = "None"
+        if search:
+            df = searchByWord(word)
+            content = display_content(df)
+            # if content =="None":
+            #     print("check")
+        if update:
+            if 'update_delete' not in st.session_state:
+                st.error("No content")
+            else:
+                content = st.session_state["update_delete"]
+                updateData(word, content)
+                st.success("更新成功 ~")
+                st.balloons()
+        if delete:
+            if 'update_delete' not in st.session_state:
+                st.error("No content ")
+            else:
+                deleteData(word)
+                st.success("刪除成功 ~")
+                st.snow()            
+    # -------------------------------------
+    # st.subheader("修改與刪除西語字彙與其中文辭義")
+    # word = st.text_input('輸入欲修改或刪除的西文單字（完整單字）', '')
+    # st.write('---')
+    # df = searchByWord(word)
+    # display_content(df)
+    # --------------------------------------
+    
+    # if searchBtn :
+    #     df = searchByWord(word)
+    #     display_content(df)
+    # col1, col2 = st.columns(2)
+    # with col1:
+    #     word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字）', 'España')
+    # with col2:
+    #     if st.button("查詢"):
+    #         df = searchByWord(word)
+    #         display_content(df)
+
+    # st.write('---')
+    # df = searchByWord(word)
+    # display_content(df)
     
     # ----------- INSERT ----------------------------
     st.subheader("新增西語字彙與其中文辭義")
     with st.form("Insert_form"):
-        # placeholder = st.empty()
         new_word = st.text_input('輸入西班牙語單字', '', key = "new")
         new_content = st.text_area('輸入中文辭義', '', height = 200, key= "content")
         st.text(new_word)
@@ -147,8 +207,8 @@ if check_password():
                 insertData(new_word, new_content)
                 st.success('新增成功 ~')
                 st.snow()
-            # st.text_input('輸入西班牙語單字', value='', key="empty")
-# ---------------------------------------------------
+
+# ------- demo codes --------------------------------------------
 #     with st.form("my_form"):
 #         st.write("Inside the form")
 #         slider_val = st.slider("Form slider")
