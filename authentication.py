@@ -186,7 +186,7 @@ if check_password():
     
     # ----------- INSERT ----------------------------
     st.subheader("新增西語字彙與其中文辭義")
-    with st.expander("打開查開編輯規則"):
+    with st.expander("打開查閱西文字彙編輯規則"):
      st.text("""
 (m;f)
 	1. 委員、代表； ~ político 政治委員
