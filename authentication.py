@@ -228,7 +228,7 @@ if check_password():
         with c2:
             submitted = st.form_submit_button("提交新單字 "+ new_word)
         with c3:
-            clearall = st.form_submit_button("輸入新單字", on_click=clear_form)
+            clearall = st.form_submit_button("清除", on_click=clear_form)
 
         if submitted:
         # if st.button("新增"):
