@@ -68,9 +68,11 @@ def main():
     with left_column:
         st.title("LUISA · 西漢/漢西辭典")
         st.subheader("Diccionario Español-Chino / Chino-Español")
+        st.text('Since 2008')
     with right_column:
         lottie_coding = load_lottieurl("https://assets7.lottiefiles.com/packages/lf20_Jmpjal.json")
         st_lottie(lottie_coding, height=200, key="coding")
+        # st.text('Since 2008')
     # st.title("LUISA · 西漢/漢西辭典")
     # st.subheader("Diccionario Español-Chino / Chino-Español")
     database = r"espnaDict.sqlite"
