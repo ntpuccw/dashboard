@@ -75,7 +75,7 @@ def main():
         # st.text('Since 2008')
     # st.title("LUISA · 西漢/漢西辭典")
     # st.subheader("Diccionario Español-Chino / Chino-Español")
-    database = r"espnaDict.sqlite"
+    database = r"espnaDict_online.sqlite"
     conn = create_connection(database)
     
     word = st.text_input('輸入西班牙語單字查詢中文辭義（完整單字或前部分字母皆可）', 'españ')
