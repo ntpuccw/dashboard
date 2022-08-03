@@ -27,7 +27,7 @@ def create_connection(db_file):
 
 def searchByWord(conn, word):
     # sql = "select content from word_content where word='"+word+"'"
-    sql = "select word, content from word_content where word like'"+word+"%'"
+    sql = "select word, content from word_content where word like'"+word+"%' order by word"
     # print(sql)
     cur = conn.cursor()
     cur.execute(sql)
