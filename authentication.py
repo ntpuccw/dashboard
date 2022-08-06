@@ -6,6 +6,8 @@
 
 import streamlit as st
 import sqlite3
+from sqlite3 import Error
+
   
 db_file = r"espnaDict_online.sqlite"
 
@@ -37,9 +39,17 @@ def insertData(word, content):
     conn = create_connection()
     sql = "INSERT INTO word_content(word, content) VALUES(?,?)" 
     cur = conn.cursor()
-    cur.execute(sql, (word, content))
+    try:
+        cur.execute(sql, (word, content))
+    except Error as e:
+        # st.error("~ 該單字已經存在 ~")
+        # display_message(str(e))
+        conn.close()
+        return 'Fail'
+    # cur.execute(sql, (word, content))
     conn.commit()
     conn.close()
+    return 'Success'
 
 def updateData(word, content):
     conn = create_connection()
@@ -235,9 +245,12 @@ if check_password():
             if new_word =='' or new_content == '':
                 st.error('請輸入單字與中文辭義')
             else:
-                insertData(new_word, new_content)
-                st.success('新增成功 ~')
-                st.snow()
+                Result = insertData(new_word, new_content)
+                if Result == 'Success':
+                    st.success('新增成功 ~')
+                    st.snow()
+                else:
+                    st.error("~ 重複新增：該單字已經存在 ~")
 
 # ------- demo codes --------------------------------------------
 #     with st.form("my_form"):
