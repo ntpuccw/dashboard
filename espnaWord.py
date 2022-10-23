@@ -75,6 +75,7 @@ def main():
         # st.text('Since 2008')
     # st.title("LUISA · 西漢/漢西辭典")
     # st.subheader("Diccionario Español-Chino / Chino-Español")
+    # database = r"C:/Users/CCWANG/OneDrive/PythonCodes/dashboard/espnaDict_online.sqlite"
     database = r"espnaDict_online.sqlite"
     conn = create_connection(database)
     
